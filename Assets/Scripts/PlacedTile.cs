@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class PlacedTile
 {
-    public TilePiece piece;
     public int rot;
 
     public int x, y;
 
     public bool[] doors;
 
-    public GameObject roomObject;
+    public TilePiece tilePiece;
 
-    public PlacedTile(GameObject obj, bool[] doors, int x, int y, int rot)
+    public PlacedTile(TilePiece obj, bool[] doors, int x, int y, int rot)
     {
-        roomObject = obj;
+        tilePiece = obj;
         this.x = x;
         this.y = y;
         this.rot = rot;
@@ -22,5 +21,6 @@ public class PlacedTile
         {
             this.doors[i] = doors[(8 + i - rot) % 4];
         }
+        tilePiece.doors = doors;
     }
 }

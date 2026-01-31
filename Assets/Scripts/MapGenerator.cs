@@ -149,7 +149,7 @@ public class MapGenerator : MonoBehaviour
 
     PlacedTile PlacePiece(TilePiece piece, int x, int y, int rot)
     {
-        var placedPrefab = Instantiate(piece.roomPrefab);
+        var placedPrefab = Instantiate(piece);
         placedPrefab.transform.position = new Vector3(x * roomSize, 0, y * roomSize);
         placedPrefab.transform.parent = TilesRoot.transform;
         placedPrefab.transform.rotation = Quaternion.Euler(0, 90 * rot, 0);

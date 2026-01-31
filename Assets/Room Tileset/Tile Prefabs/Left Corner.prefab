@@ -59,6 +59,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 387fd6be8c4ff9449b8aca0a8369dc24, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5955903136258180137}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 387fd6be8c4ff9449b8aca0a8369dc24, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1264280096653777879}
   m_SourcePrefab: {fileID: 100100000, guid: 387fd6be8c4ff9449b8aca0a8369dc24, type: 3}
 --- !u!1 &6861877467159963777 stripped
 GameObject:
@@ -87,3 +90,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1554534005687574173, guid: 387fd6be8c4ff9449b8aca0a8369dc24, type: 3}
+--- !u!114 &-1264280096653777879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861877467159963777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06301cbfcb020ce4ba6cc5359bc13b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TilePiece
+  doors: 00000101
+  roomPrefab: {fileID: 0}
+  availableEnemies: []

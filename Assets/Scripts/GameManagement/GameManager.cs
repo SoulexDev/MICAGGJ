@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private NavMeshSurface navSurface;
 
+    public bool testScene = false;
+
     private void Awake()
     {
         playerRayIgnoreMask = ~LayerMask.GetMask("Player", "Ignore Raycast", "Ignore Player");
@@ -19,16 +21,21 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
-        navSurface = FindFirstObjectByType<NavMeshSurface>();
+    {   
+        if(!testScene)
+        {
+            navSurface = FindFirstObjectByType<NavMeshSurface>();
 
-        generator = Instantiate(Resources.Load<MapGenerator>("Map Generator 1"));
+            generator = Instantiate(Resources.Load<MapGenerator>("Map Generator 1"));
 
-        generator.RunGenerator();
-        navSurface.BuildNavMesh();
+            generator.RunGenerator();
+            navSurface.BuildNavMesh();
 
-        player = Instantiate(Resources.Load<Player>("Player"));
-        player.transform.position = generator.startingRoom.roomObject.transform.position;
+            player = Instantiate(Resources.Load<Player>("Player"));
+            player.transform.position = generator.startingRoom.tilePiece.transform.position;
+        }
+
+
     }
 
 

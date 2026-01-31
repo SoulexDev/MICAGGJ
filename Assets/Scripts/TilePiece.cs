@@ -1,10 +1,9 @@
 
 using UnityEngine;
+using System.Collections.Generic;
 
-
-[CreateAssetMenu(fileName = "Tile", menuName = "My Assets/Tile Piece")]
-public class TilePiece : ScriptableObject
+public class TilePiece : MonoBehaviour
 {
     public bool[] doors = new bool[4];
-    public GameObject roomPrefab;
+    public List<EnemyController> availableEnemies;
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e401e96695f5034d85d7224d24f7618, type: 3}
   m_Name: Corners Only Tileset
   m_EditorClassIdentifier: Assembly-CSharp::RoomTileset
-  startingTile: {fileID: 11400000, guid: 47303fef7554d7d4790a1071296d4a10, type: 2}
+  startingTile: {fileID: 7619029220901879665, guid: 2a0291a02ca649444b908c8b2b64b527, type: 3}
   availableTiles:
-  - tile: {fileID: 11400000, guid: 3ec65e493fac7de48b7add3db1a8e4bb, type: 2}
+  - tile: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
     count: 10
-  - tile: {fileID: 11400000, guid: 4a1c3a7007c0d084184bf002ed8fdb1e, type: 2}
+  - tile: {fileID: -1239839952998114680, guid: 02bb69dcb2c524640917c02162e4ed43, type: 3}
     count: 10
