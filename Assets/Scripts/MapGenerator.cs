@@ -20,6 +20,8 @@ public class MapGenerator : MonoBehaviour
 
     public GameObject TilesRoot;
 
+    public PlacedTile startingRoom;
+
     void Update()
     {
         if(test)
@@ -29,7 +31,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void RunGenerator()
+    public void RunGenerator()
     {
         openTiles = new List<PlacedTile>();
 
@@ -49,7 +51,7 @@ public class MapGenerator : MonoBehaviour
 
         int wCenter = gridWidth / 2;
 
-        PlacePiece(Tileset.startingTile, wCenter, 0, 0);
+        startingRoom = PlacePiece(Tileset.startingTile, wCenter, 0, 0);
 
         Tileset.BuildTileList();
 
@@ -145,7 +147,7 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    void PlacePiece(TilePiece piece, int x, int y, int rot)
+    PlacedTile PlacePiece(TilePiece piece, int x, int y, int rot)
     {
         var placedPrefab = Instantiate(piece.roomPrefab);
         placedPrefab.transform.position = new Vector3(x * roomSize, 0, y * roomSize);
@@ -159,6 +161,8 @@ public class MapGenerator : MonoBehaviour
         tiles[x][y] = placed;
 
         openTiles.Add(placed);
+
+        return placed;
 
     }
 }

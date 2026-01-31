@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 4xHall
   m_EditorClassIdentifier: Assembly-CSharp::TilePiece
   doors: 01010101
-  roomPrefab: {fileID: 919132149155446097, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
+  roomPrefab: {fileID: 2270881433579466468, guid: 5c3b84f3b7209434996ab05352970c5e, type: 3}

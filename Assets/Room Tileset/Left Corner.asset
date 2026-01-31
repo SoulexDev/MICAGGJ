@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Left Corner
   m_EditorClassIdentifier: Assembly-CSharp::TilePiece
   doors: 00000101
-  roomPrefab: {fileID: 919132149155446097, guid: 387fd6be8c4ff9449b8aca0a8369dc24, type: 3}
+  roomPrefab: {fileID: 6861877467159963777, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
