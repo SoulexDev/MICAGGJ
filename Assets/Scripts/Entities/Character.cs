@@ -9,6 +9,11 @@ public class Character : MonoBehaviour
 
     public Vector3 lookDirection;
 
+    public Vector3 targetOpp => GetNearestOpp();
+    public Vector3 targetDirection => targetOpp - transform.position;
+    public Vector3 targetDirectionNormalized => targetDirection.normalized;
+    public float targetDistance => targetDirection.magnitude;
+
     private bool _isDead;
     public bool isDead
     {
@@ -149,6 +154,16 @@ public class Character : MonoBehaviour
         }
         else
             return 0;
+    }
+    private Vector3 GetNearestOpp()
+    {
+        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsOpped(h) && !h.isDead))
+        {
+            Character heu = m_OtherHeuristics.OrderBy(h => Vector3.Distance(h.transform.position, transform.position)).First();
+            return heu.transform.position;
+        }
+        else
+            return Vector3.zero;
     }
     private bool IsAllied(Character heu)
     {
