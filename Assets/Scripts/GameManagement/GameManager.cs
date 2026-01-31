@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
             generator.RunGenerator();
             navSurface.BuildNavMesh();
 
+            generator.ProcessEnemySpawns();
+
             player = Instantiate(Resources.Load<Player>("Player"));
             player.transform.position = generator.startingRoom.tilePiece.transform.position;
         }

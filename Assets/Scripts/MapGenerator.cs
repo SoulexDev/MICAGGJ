@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 [ExecuteInEditMode]
 public class MapGenerator : MonoBehaviour
@@ -16,9 +18,13 @@ public class MapGenerator : MonoBehaviour
 
     public List<PlacedTile> openTiles;
 
+    public List<(PlacedTile tile, EnemyController enemy)> enemySpawns;
+
     public RoomTileset Tileset;
 
     public GameObject TilesRoot;
+
+    public GameObject EnemiesRoot;
 
     public PlacedTile startingRoom;
 
@@ -28,19 +34,29 @@ public class MapGenerator : MonoBehaviour
         {
             test = false;
             RunGenerator();
+            var nav = FindFirstObjectByType<NavMeshSurface>() ?? new GameObject("NavMeshSurface").AddComponent<NavMeshSurface>();
+            nav.BuildNavMesh();
+            ProcessEnemySpawns();
         }
     }
 
     public void RunGenerator()
     {
         openTiles = new List<PlacedTile>();
+        enemySpawns = new List<(PlacedTile, EnemyController)>();
 
         if(TilesRoot != null)
         {
             DestroyImmediate(TilesRoot);
         }
 
+        if(EnemiesRoot != null)
+        {
+            DestroyImmediate(EnemiesRoot);
+        }
+
         TilesRoot = new GameObject("Room Tiles");
+        EnemiesRoot = new GameObject("Enemies");
 
         tiles = new PlacedTile[gridHeight][];
 
@@ -93,9 +109,40 @@ public class MapGenerator : MonoBehaviour
                             }
                         }
 
-                        PlacePiece(newPiece, newX, newY, newRot);
+                        var newTile = PlacePiece(newPiece, newX, newY, newRot);
+
+                        if(newPiece.availableEnemies.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
+                        {
+                            Debug.Log("Queuing enemy spawn");
+                            var choice = newPiece.availableEnemies[Random.Range(0, newPiece.availableEnemies.Count)];
+                            enemySpawns.Add((newTile, choice));
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    // run after the navmesh builds?
+    public void ProcessEnemySpawns()
+    {
+        while(enemySpawns.Count > 0)
+        {
+            var next = enemySpawns[0];
+            enemySpawns.RemoveAt(0);
+
+            var samplePos = next.tile.tilePiece.transform.position;
+            samplePos += new Vector3(Random.Range(-roomSize / 2, roomSize / 2), 0, Random.Range(-roomSize / 2, roomSize / 2));
+
+            if (NavMesh.SamplePosition(samplePos, out var hit, 20f, 1))
+            {
+                var enemy = Instantiate(next.enemy);
+                enemy.transform.position = hit.position + Vector3.up * 0.8f;
+                enemy.transform.parent = EnemiesRoot.transform;
+            }
+            else
+            {
+                Debug.Log("Enemy spawn skipped!");
             }
         }
     }

@@ -103,5 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TilePiece
   doors: 00000101
-  roomPrefab: {fileID: 0}
-  availableEnemies: []
+  availableEnemies:
+  - {fileID: 8729847491659336432, guid: ff6c238c68881fa428fffaae4ceb99e0, type: 3}
+  enemyChance: 0.25
