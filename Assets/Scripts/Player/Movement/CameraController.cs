@@ -8,6 +8,11 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Transform m_CameraTarget;
     [SerializeField] private Transform m_CameraRotationHandle;
+    [SerializeField] private Transform m_CameraAnimationHandle;
+
+    [SerializeField] private AnimationCurve m_StepXRotation;
+    [SerializeField] private AnimationCurve m_StepZRotation;
+    [SerializeField] private AnimationCurve m_StepYPosition;
 
     private void Awake()
     {
@@ -25,6 +30,22 @@ public class CameraController : MonoBehaviour
 
         m_CameraRotationHandle.rotation = Quaternion.Euler(m_CamX, m_CamY, 0);
         m_CameraRotationHandle.position = m_CameraTarget.position;
+
+        PlayerController controller = Player.Instance.playerController;
+
+        Vector3 charVel = controller.moveVector;
+        charVel.y = 0;
+        float amount = charVel.magnitude;
+        float time = Time.time * amount * 0.5f;
+        float loop = time - Mathf.Floor(time);
+
+        Quaternion rot = Quaternion.Euler(m_StepXRotation.Evaluate(loop), 0, 
+            m_StepZRotation.Evaluate(loop));
+
+        Vector3 pos = Vector3.down * m_StepYPosition.Evaluate(loop);
+
+        m_CameraAnimationHandle.localRotation = Quaternion.Lerp(Quaternion.identity, rot, amount);
+        m_CameraAnimationHandle.localPosition = Vector3.Lerp(Vector3.zero, pos, amount);
     }
     public Vector3 GetForward()
     {
