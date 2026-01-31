@@ -9,6 +9,7 @@ public class AdvancedAudioSource : MonoBehaviour
     [SerializeField] private AudioSource m_AudioSource;
     [SerializeField] private AudioLowPassFilter m_LowPassFilter;
     public AudioClip[] clips;
+    public bool playOnAwake = false;
     public bool isGlobal;
     public bool useOcclusion = true;
 
@@ -18,6 +19,9 @@ public class AdvancedAudioSource : MonoBehaviour
     {
         if (isGlobal)
             m_AudioSource.spatialBlend = 0;
+
+        if (playOnAwake)
+            Play();
     }
     private void FixedUpdate()
     {
@@ -43,15 +47,23 @@ public class AdvancedAudioSource : MonoBehaviour
         {
             //TODO: use audio mask
             Vector3 pos = transform.position + Quaternion.AngleAxis(i * 90, transform.forward) * transform.up;
-            if (!Physics.Linecast(pos, Camera.main.transform.position, out RaycastHit hit))
+            if (!Physics.Linecast(pos, Camera.main.transform.position, out RaycastHit hit, GameManager.audioOcclusionMask))
                 return false;
         }
         return true;
     }
-    public void PlayOneShot()
+    public void PlayOneShot(AudioClip clip = null)
     {
-        m_AudioSource.pitch = 1 + Random.Range(pitchVariation.x, pitchVariation.y);
-        m_AudioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
+        if (clip == null)
+        {
+            m_AudioSource.pitch = 1 + Random.Range(pitchVariation.x, pitchVariation.y);
+            m_AudioSource.PlayOneShot(clips[Random.Range(0, clips.Length)]);
+        }
+        else
+        {
+            m_AudioSource.pitch = 1 + Random.Range(pitchVariation.x, pitchVariation.y);
+            m_AudioSource.PlayOneShot(clip);
+        }
     }
     public void Play()
     {

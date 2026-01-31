@@ -23,7 +23,7 @@ public class EarAttenuator : MonoBehaviour
 
         for (int i = 0; i < rayCount; i++)
         {
-            Vector3 dir = Quaternion.AngleAxis(i * checkAngle, Vector3.up) * transform.forward;
+            Vector3 dir = Quaternion.AngleAxis(i * checkAngle, Vector3.up) * CameraController.Instance.GetForward();
 
             //TODO: use audio mask
             if (Physics.SphereCast(transform.position, 0.1f, dir, out RaycastHit hit, 8))
