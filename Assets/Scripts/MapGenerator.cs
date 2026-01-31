@@ -136,8 +136,7 @@ public class MapGenerator : MonoBehaviour
 
             if (NavMesh.SamplePosition(samplePos, out var hit, 20f, 1))
             {
-                var enemy = Instantiate(next.enemy);
-                enemy.transform.position = hit.position + Vector3.up * 0.8f;
+                var enemy = Instantiate(next.enemy, hit.position + Vector3.up * 0.8f, Quaternion.identity);
                 enemy.transform.parent = EnemiesRoot.transform;
             }
             else
@@ -208,6 +207,12 @@ public class MapGenerator : MonoBehaviour
         tiles[x][y] = placed;
 
         openTiles.Add(placed);
+
+        var spawnMarkers = placedPrefab.GetComponentsInChildren<SpawnMarker>();
+        foreach (var spawnMarker in spawnMarkers)
+        {
+            spawnMarker.ProcessSpawn();
+        }
 
         return placed;
 

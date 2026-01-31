@@ -25,12 +25,14 @@ public class EnemyController : StateMachine<EnemyController>
         stateDictionary.Add(EnemyStates.LookForTarget, new EnemyLookForTarget());
         stateDictionary.Add(EnemyStates.ChaseTarget, new EnemyChaseTarget());
 
-        SwitchState(EnemyStates.LookForTarget);
-
         navAgent = GetComponent<NavMeshAgent>() ?? gameObject.AddComponent<NavMeshAgent>();
         navAgent.speed = enemy.speed;
     }
 
+    private void Start()
+    {
+        SwitchState(EnemyStates.LookForTarget);
+    }
 
     public void PathToTarget()
     {
@@ -49,7 +51,6 @@ public class EnemyController : StateMachine<EnemyController>
     public void TryToAttack()
     {
         float dist = Vector3.Distance(transform.position, target.transform.position);
-        Debug.Log(dist);
         if(dist <= enemy.attackRange)
         {
             navAgent.isStopped = true;

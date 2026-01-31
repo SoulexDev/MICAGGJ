@@ -20,10 +20,20 @@ public class EnemyLookForTarget : State<EnemyController>
 
         float dist = Vector3.Distance(player.transform.position, ctx.transform.position);
 
-        if (dist <= ctx.enemy.aggroRange)
+        Vector3 dir = (player.transform.position + Vector3.up) - ctx.transform.position;
+
+        Debug.DrawRay(ctx.transform.position, dir);
+
+        if (dist <= ctx.enemy.aggroRange && 
+            Physics.Raycast(ctx.transform.position, dir, 
+            out RaycastHit hit, ctx.enemy.aggroRange))
         {
-            ctx.target = player.gameObject;
-            ctx.SwitchState(EnemyStates.ChaseTarget);
+            Debug.Log(hit.transform.gameObject);
+            if(hit.transform.gameObject == player.gameObject)
+            {
+                ctx.target = player.gameObject;
+                ctx.SwitchState(EnemyStates.ChaseTarget);
+            }
         }
     }
 }

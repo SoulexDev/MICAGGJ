@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 40b153a07874f68458166029d84e25ed
+guid: 09d2b8ef348931a4886bbe856b820ccc
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall_1
-    second: {fileID: 2100000, guid: 7086f30f7ab58a243ab9e87120558ec5, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -55,7 +50,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
