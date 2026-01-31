@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
         Vector3 charVel = controller.moveVector;
         charVel.y = 0;
         float amount = charVel.magnitude;
-        float time = Time.time * amount * 0.5f;
+        float time = Time.time * 0.5f;
         float loop = time - Mathf.Floor(time);
 
         Quaternion rot = Quaternion.Euler(m_StepXRotation.Evaluate(loop), 0, 
