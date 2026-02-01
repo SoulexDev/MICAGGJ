@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class StateMachine<T> : MonoBehaviour where T : StateMachine<T>
 {
-    public bool serverAuthoritative = false;
     public Dictionary<Enum, State<T>> stateDictionary = new Dictionary<Enum, State<T>>();
     public State<T> currentState;
     private bool m_switchingState;

@@ -1454,6 +1454,7 @@ GameObject:
   - component: {fileID: 1658470485}
   - component: {fileID: 1658470487}
   - component: {fileID: 1658470486}
+  - component: {fileID: 1658470488}
   m_Layer: 6
   m_Name: Controller
   m_TagString: Untagged
@@ -1490,7 +1491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40aaf44287c41b54499ac734f1c69b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  serverAuthoritative: 0
   characterController: {fileID: 1658470487}
   walkSpeed: 2.5
   runSpeed: 6
@@ -1524,6 +1524,34 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1658470488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658470484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8919347cc1ddaf948969065a42dbea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  isPlayer: 0
+  characterType: 2
+  maskType: 0
+  maxHealth: 2
+  lookDirection: {x: 0, y: 0, z: 0}
+  targetOpp: {fileID: 0}
+  targetAlly: {fileID: 0}
+  shotAtAlly: 0
+  shotAtOpp: 0
+  gunPointedMe: 0
+  gunPointedAlly: 0
+  gunPointedOpp: 0
+  allyPresence: 0
+  oppPresence: 0
+  isShot: 0
+  heatMap: 0
 --- !u!1 &1787759458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1664,135 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1809726450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1809726451}
+  m_Layer: 0
+  m_Name: CharacterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1809726451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809726450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1839601509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839601510}
+  - component: {fileID: 1839601511}
+  - component: {fileID: 1839601512}
+  - component: {fileID: 1839601513}
+  m_Layer: 0
+  m_Name: Civilian
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1839601510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839601509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1839601511
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839601509}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 32
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1839601512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839601509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8919347cc1ddaf948969065a42dbea61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  isPlayer: 0
+  characterType: 1
+  maskType: 0
+  maxHealth: 1
+  lookDirection: {x: 0, y: 0, z: 0}
+  targetOpp: {fileID: 0}
+  targetAlly: {fileID: 0}
+  shotAtAlly: 0
+  shotAtOpp: 0
+  gunPointedMe: 0
+  gunPointedAlly: 0
+  gunPointedOpp: 0
+  allyPresence: 0
+  oppPresence: 0
+  isShot: 0
+  heatMap: 0
+--- !u!114 &1839601513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839601509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be84155d0179ebe4f96eac141edaba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CivilianController
+  agent: {fileID: 1839601511}
+  characterData: {fileID: 1839601512}
 --- !u!1 &2040880553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,3 +2230,5 @@ SceneRoots:
   - {fileID: 284529591}
   - {fileID: 99013761}
   - {fileID: 752444442053834039}
+  - {fileID: 1839601510}
+  - {fileID: 1809726451}
