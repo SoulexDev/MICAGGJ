@@ -15,6 +15,7 @@ public class SceneFader : MonoBehaviour
     public AudioMixer mixer;
 
     public UnityEvent prefadeEvent;
+    public AnimationCurve fadeoutcurve;
 
     private void Awake()
     {
@@ -49,7 +50,10 @@ public class SceneFader : MonoBehaviour
         while (timer < 1)
         {
             timer += Time.deltaTime * fadeSpeed;
-            fadePanel.alpha = timer;
+            // fadePanel.alpha = timer;
+            fadePanel.alpha =fadeoutcurve.Evaluate(timer) ;
+            // Debug.Log(fadeoutcurve.Evaluate(timer));
+            
             yield return null;
         }
         fadePanel.alpha = 1;

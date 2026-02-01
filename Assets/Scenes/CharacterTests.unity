@@ -1539,8 +1539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535e8c7d8f9c6e440b0066de131ba8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoliceFireGun
-  audioSrc: {fileID: 1419030213}
-  snd: {fileID: 8300000, guid: cdb0d69aa5045c7409a63426561b0ce0, type: 3}
+  audioSource: {fileID: 0}
+  policeController: {fileID: 0}
 --- !u!1 &1572078813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6f6d221e955c3164e8797e9bc61173aa, type: 3}
@@ -1781,7 +1781,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f32bfc4a09f982e4ea72be26c0de4879, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.38319
+      value: 0.816
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f32bfc4a09f982e4ea72be26c0de4879, type: 3}
       propertyPath: m_LocalPosition.y

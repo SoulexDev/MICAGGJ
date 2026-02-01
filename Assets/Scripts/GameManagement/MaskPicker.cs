@@ -5,6 +5,7 @@ public class MaskPicker : MonoBehaviour
     public static MaskPicker Instance;
 
     public MaskType chosenMask;
+    public Animator playercutscene;
 
     private void Awake()
     {
@@ -27,5 +28,10 @@ public class MaskPicker : MonoBehaviour
             "Anger" => MaskType.Anger,
             _ => MaskType.None
         };
+if(playercutscene != null)
+{
+playercutscene.SetTrigger("cutscene");
+}
+        
     }
 }
