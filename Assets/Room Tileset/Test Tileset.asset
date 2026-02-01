@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e401e96695f5034d85d7224d24f7618, type: 3}
   m_Name: Test Tileset
   m_EditorClassIdentifier: Assembly-CSharp::RoomTileset
-  startingTile: {fileID: 7619029220901879665, guid: 2a0291a02ca649444b908c8b2b64b527, type: 3}
+  startingTile: {fileID: 7619029220901879665, guid: 7a63a56947c61e6459e136fc695b4153, type: 3}
   availableTiles:
   - tile: {fileID: 8680395374158932314, guid: 5c3b84f3b7209434996ab05352970c5e, type: 3}
-    count: 5
+    count: 16
   - tile: {fileID: 7619029220901879665, guid: 2a0291a02ca649444b908c8b2b64b527, type: 3}
-    count: 5
+    count: 16
+  - tile: {fileID: 3085728609627866247, guid: 3f4ec7f05a89bcd4aa5055d436d534b1, type: 3}
+    count: 1
   - tile: {fileID: -1239839952998114680, guid: 02bb69dcb2c524640917c02162e4ed43, type: 3}
-    count: 5
+    count: 16
   - tile: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
-    count: 5
+    count: 16
   - tile: {fileID: 8922842927173746028, guid: 486b0a9256f0ec341afcf46c6cd6978a, type: 3}
-    count: 5
+    count: 16

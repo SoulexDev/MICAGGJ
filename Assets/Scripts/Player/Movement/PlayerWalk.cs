@@ -18,6 +18,8 @@ public class PlayerWalk : State<PlayerController>
     {
         ctx.characterController.Move(ctx.moveVector * ctx.walkSpeed * Time.deltaTime);
 
+        ctx.characterData.heatMap += Time.deltaTime;
+
         if (ctx.SwitchByCondition(PlayerState.Idle, !ctx.isUsingInput))
             return;
         if (ctx.SwitchByCondition(PlayerState.Sprint, Input.GetKey(KeyCode.LeftShift)))

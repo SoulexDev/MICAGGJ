@@ -7,18 +7,27 @@ public enum CharacterType { Civilian = 1, Police = 2, Monster = 4 }
 public enum MaskType { None = 0, Joy = 1, Despair = 2, Anger = 4 }
 public class Character : MonoBehaviour, IHealth
 {
+    public bool isPlayer = false;
+
     public CharacterType characterType;
     public MaskType maskType;
 
     public float maxHealth;
     private float m_Health;
 
+    public bool invincible;
+
     public Vector3 lookDirection;
 
-    public Vector3 targetOpp => GetNearestOpp();
-    public Vector3 targetDirection => targetOpp - transform.position;
-    public Vector3 targetDirectionNormalized => targetDirection.normalized;
-    public float targetDistance => targetDirection.magnitude;
+    public Character targetOpp;
+    public Vector3 targetOppDirection => targetOpp != null ? transform.position - targetOpp.transform.position : Vector3.zero;
+    public Vector3 targetOppDirectionNormalized => targetOppDirection.normalized;
+    public float targetOppDistance => targetOppDirection.magnitude;
+
+    public Character targetAlly;
+    public Vector3 targetAllyDirection => targetAlly != null ? transform.position - targetAlly.transform.position : Vector3.zero;
+    public Vector3 targetAllyDirectionNormalized => targetAllyDirection.normalized;
+    public float targetAllyDistance => targetAllyDirection.magnitude;
 
     private bool _isDead;
     public bool isDead
@@ -31,8 +40,21 @@ public class Character : MonoBehaviour, IHealth
                 OnDie?.Invoke();
         }
     }
+
+    public LayerMask rayIgnoreMask;
+
+    public float shotAtAlly;
+    public float shotAtOpp;
+    public float gunPointedMe;
+    public float gunPointedAlly;
+    public float gunPointedOpp;
+    public float allyPresence;
+    public float oppPresence;
+
     public float isShot;
     public float heatMap;
+
+    private int frameTicker = 0;
 
     private List<Character> m_OtherHeuristics => CharacterManager.Instance.characters;
     private Dictionary<CharacterType, CharacterType> m_AllianceTable = new Dictionary<CharacterType, CharacterType>
@@ -70,6 +92,14 @@ public class Character : MonoBehaviour, IHealth
     {
         m_Health = maxHealth;
 
+        if (isPlayer)
+            maskType = MaskPicker.Instance.chosenMask;
+
+        if (maskType == MaskType.Anger)
+            characterType = CharacterType.Monster;
+    }
+    private void Start()
+    {
         foreach (Character heu in m_OtherHeuristics)
         {
             heu.OnDie += () =>
@@ -83,22 +113,57 @@ public class Character : MonoBehaviour, IHealth
                     OnOppDie?.Invoke();
                 }
             };
-        }
+        }   
     }
     private void Update()
     {
         isShot = Mathf.MoveTowards(isShot, 0, Time.deltaTime * 4);
+        heatMap = Mathf.Lerp(heatMap, 0, Time.deltaTime * 0.5f);
+        //print(heatMap);
+        frameTicker++;
+
+        if (frameTicker % 20 == 0)
+        {
+            frameTicker = 0;
+            SlowUpdate();
+        }
+    }
+    void SlowUpdate()
+    {
+        targetOpp = GetNearestOpp();
+        targetAlly = GetNearestAlly();
+        shotAtAlly = GetShotAtAlly();
+        shotAtOpp = GetShotAtOpp();
+        gunPointedMe = GetGunPointedMe();
+        gunPointedAlly = GetGunPointedAlly();
+        gunPointedOpp = GetGunPointedOpp();
+
+        allyPresence = targetAlly ? GetAllyPresence(targetAlly) : 0;
+        oppPresence = targetOpp ? GetOppPresence(targetOpp) : 0;
     }
     public bool Damage(float amount)
     {
         m_Health -= amount;
         isShot += 1;
-
         isShot = Mathf.Clamp(isShot, 0, 1);
+
+        if (m_Health <= 0)
+        {
+            if (invincible)
+            {
+                m_Health = maxHealth;
+            }
+            else if (!isPlayer)
+            {
+                CharacterManager.Instance.RemoveCharacter(this);
+                Destroy(gameObject);
+            }
+            OnDie?.Invoke();
+        }
 
         return true;
     }
-    public float GetShotAtAlly()
+    private float GetShotAtAlly()
     {
         float value = 0;
         foreach (Character heu in m_OtherHeuristics)
@@ -110,7 +175,7 @@ public class Character : MonoBehaviour, IHealth
         }
         return value;
     }
-    public float GetShotAtOpp()
+    private float GetShotAtOpp()
     {
         float value = 0;
         foreach (Character heu in m_OtherHeuristics)
@@ -122,7 +187,7 @@ public class Character : MonoBehaviour, IHealth
         }
         return value;
     }
-    public float GetGunPointedMe()
+    private float GetGunPointedMe()
     {
         float value = 0;
         foreach (Character heu in m_OtherHeuristics)
@@ -135,7 +200,7 @@ public class Character : MonoBehaviour, IHealth
         }
         return value;
     }
-    public float GetGunPointedAlly()
+    private float GetGunPointedAlly()
     {
         float value = 0;
         foreach (Character heu in m_OtherHeuristics)
@@ -147,7 +212,7 @@ public class Character : MonoBehaviour, IHealth
         }
         return value;
     }
-    public float GetGunPointedOpp()
+    private float GetGunPointedOpp()
     {
         float value = 0;
         foreach (Character heu in m_OtherHeuristics)
@@ -159,37 +224,73 @@ public class Character : MonoBehaviour, IHealth
         }
         return value;
     }
-    public float GetAllyPresence()
+    private float GetAllyPresence(Character heu)
     {
-        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsAllied(h) && !h.isDead))
+        float dist = Vector3.Distance(transform.position, heu.transform.position);
+
+        float value = heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(true, heu.maskType)];
+        if (Physics.Linecast(transform.position + Vector3.up, heu.transform.position + Vector3.up, ~rayIgnoreMask))
         {
-            Character heu = m_OtherHeuristics.OrderBy(h => Vector3.Distance(h.transform.position, transform.position)).First(h => h != this && IsAllied(h));
-            float dist = Vector3.Distance(transform.position, heu.transform.position);
-            return heu.heatMap * Mathf.Clamp01(1f - dist / 15f) * m_MultiplierTable[(true, heu.maskType)];
+            return value + 1;
         }
-        else
-            return 0;
+        return value;
     }
-    public float GetOppPresence()
+    private float GetOppPresence(Character heu)
     {
-        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsOpped(h) && !h.isDead))
+        float dist = Vector3.Distance(transform.position, heu.transform.position);
+
+        float value = heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(false, heu.maskType)];
+        if (Physics.Linecast(transform.position + Vector3.up, heu.transform.position + Vector3.up, ~rayIgnoreMask))
         {
-            Character heu = m_OtherHeuristics.OrderBy(h => Vector3.Distance(h.transform.position, transform.position)).First(h => h != this && IsOpped(h));
-            float dist = Vector3.Distance(transform.position, heu.transform.position);
-            return heu.heatMap * Mathf.Clamp01(1f - dist / 15f) * m_MultiplierTable[(false, heu.maskType)];
+            return value + 1;
         }
-        else
-            return 0;
+        return value;
     }
-    private Vector3 GetNearestOpp()
+    private Character GetNearestOpp()
     {
-        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsOpped(h) && !h.isDead))
+        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => h != this && IsOpped(h) && !h.isDead))
         {
-            Character heu = m_OtherHeuristics.OrderBy(h => Vector3.Distance(h.transform.position, transform.position)).First(h => h != this && IsOpped(h));
-            return heu.transform.position;
+            float dist = float.PositiveInfinity;
+            Character heu = null;
+            foreach (var c in m_OtherHeuristics)
+            {
+                if (c != this && !c.isDead && IsOpped(c))
+                {
+                    float distance = Vector3.Distance(c.transform.position, transform.position);
+                    if (distance < dist)
+                    {
+                        heu = c;
+                        dist = distance;
+                    }
+                }
+            }
+            return heu;
         }
         else
-            return Vector3.zero;
+            return null;
+    }
+    private Character GetNearestAlly()
+    {
+        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => h != this && IsAllied(h) && !h.isDead))
+        {
+            float dist = float.PositiveInfinity;
+            Character heu = null;
+            foreach (var c in m_OtherHeuristics)
+            {
+                if (c != this && !c.isDead && IsAllied(c))
+                {
+                    float distance = Vector3.Distance(c.transform.position, transform.position);
+                    if (distance < dist)
+                    {
+                        heu = c;
+                        dist = distance;
+                    }
+                }
+            }
+            return heu;
+        }
+        else
+            return null;
     }
     private bool IsAllied(Character heu)
     {

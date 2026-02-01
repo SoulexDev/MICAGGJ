@@ -4,6 +4,8 @@ public enum PlayerState { Idle, Walk, Sprint }
 public class PlayerController : StateMachine<PlayerController>
 {
     public CharacterController characterController;
+    public Character characterData;
+
     public float walkSpeed = 2.5f;
     public float runSpeed = 6;
 
@@ -64,8 +66,8 @@ public class PlayerController : StateMachine<PlayerController>
         //if ((bodyLayerMask & pushLayers) == 0)
         //return;
 
-        Debug.Log(hit.moveDirection);
-        Debug.Log(hit.point);
+        //Debug.Log(hit.moveDirection);
+        //Debug.Log(hit.point);
 
         // We dont want to push objects below us
         if (hit.moveDirection.y < -0.3)
