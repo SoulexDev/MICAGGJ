@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-6244794081603441403
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MonsterFastGrowl4_{-6244794081603441403}
+  m_AudioClip: {fileID: 8300000, guid: 60ecd93192d5096479466389d508282c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-3056219789691000375
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MonsterFastGrowl2_{-3056219789691000375}
+  m_AudioClip: {fileID: 8300000, guid: b72837606bc6b03439fafebd33181ce9, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-2098261220165199774
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MonsterFastGrowl3_{-2098261220165199774}
+  m_AudioClip: {fileID: 8300000, guid: 2a8227c90b9eb904682ed3bd15ce2cd9, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &2044436397753932550
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MonsterFastGrowl1_{2044436397753932550}
+  m_AudioClip: {fileID: 8300000, guid: 4623c46b0d17bba418ce2afeb7934a5b, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MonsterFastGrowl
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: -48, y: 48}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 2044436397753932550}
+  - {fileID: -3056219789691000375}
+  - {fileID: -2098261220165199774}
+  - {fileID: -6244794081603441403}
+  m_AvoidRepeatingLast: 2
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 1
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
