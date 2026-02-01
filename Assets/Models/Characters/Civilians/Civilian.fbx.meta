@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: d2a7854f55528fd4191c40457e178cda, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: d2a7854f55528fd4191c40457e178cda, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -22,16 +27,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: root
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'root|001Cower' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'c_index1.l' has translation animation that
-      will be discarded.\n\nClip 'root|002DieFall' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'c_index1.l' has translation animation that
-      will be discarded.\n\nClip 'root|003ScaredJog' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'c_index1.l' has translation animation that
-      will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0

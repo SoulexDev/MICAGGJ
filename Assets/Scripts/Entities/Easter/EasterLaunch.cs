@@ -14,6 +14,7 @@ public class EasterLaunch : State<EasterController>
         ctx.agent.speed = 32;
 
         ctx.fastGrowlSource.PlayOneShot();
+        ctx.characterData.heatMap += 0.5f;
     }
     public override void ExitState(EasterController ctx)
     {
@@ -26,13 +27,13 @@ public class EasterLaunch : State<EasterController>
     public override void UpdateState(EasterController ctx)
     {
         if (Physics.SphereCast(ctx.transform.position, 0.5f, ctx.transform.forward, 
-            out RaycastHit hit, 2, GameManager.enemyRayIgnoreMask))
+            out RaycastHit hit, 2, GameManager.monsterRayIgnoreMask))
         {
             if (hit.transform.TryGetComponent(out IHealth health))
             {
                 health.Damage(2);
             }
-            Collider[] cols = Physics.OverlapSphere(hit.point, 4, GameManager.enemyRayIgnoreMask);
+            Collider[] cols = Physics.OverlapSphere(hit.point, 4, GameManager.monsterRayIgnoreMask);
 
             foreach (var col in cols)
             {

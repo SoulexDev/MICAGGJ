@@ -5,7 +5,9 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     public static LayerMask playerRayIgnoreMask;
-    public static LayerMask enemyRayIgnoreMask;
+    public static LayerMask monsterRayIgnoreMask;
+    public static LayerMask policeRayIgnoreMask;
+    public static LayerMask civilianRayIgnoreMask;
     public static LayerMask audioOcclusionMask;
 
     private MapGenerator generator;
@@ -18,7 +20,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         playerRayIgnoreMask = ~LayerMask.GetMask("Player", "Ignore Raycast", "Ignore Player");
-        enemyRayIgnoreMask = ~LayerMask.GetMask("Enemy", "Ignore Raycast", "Ignore Enemy");
+        monsterRayIgnoreMask = ~LayerMask.GetMask("Monster", "Ignore Raycast", "Ignore Monster");
+        policeRayIgnoreMask = ~LayerMask.GetMask("Police", "Ignore Raycast", "Ignore Police");
         audioOcclusionMask = ~LayerMask.GetMask("Player", "Enemy", "Ignore Raycast");
     }
 
