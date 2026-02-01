@@ -12,12 +12,12 @@ public class CharacterManager : MonoBehaviour
     }
     public void AddCharacter(Character c)
     {
-        if (!characters.Contains(c))
+        if (c && !characters.Contains(c))
             characters.Add(c);
     }
     public void RemoveCharacter(Character c)
     {
-        if (characters.Contains(c))
+        if (c && characters.Contains(c))
             characters.Remove(c);
     }
 }

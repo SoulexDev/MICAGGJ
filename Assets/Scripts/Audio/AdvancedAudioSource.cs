@@ -71,35 +71,35 @@ public class AdvancedAudioSource : MonoBehaviour
         m_AudioSource.clip = clips[Random.Range(0, clips.Length)];
         m_AudioSource.Play();
     }
-    private void OnDrawGizmos()
-    {
-        bool isOccluded = true;
-        for (int i = 0; i < 4; i++)
-        {
-            Vector3 pos = transform.position + Quaternion.AngleAxis(i * 90, transform.forward) * transform.up;
-            if (!Physics.Linecast(pos, Camera.main.transform.position, out RaycastHit hit))
-            {
-                isOccluded = false;
-            }
-            else
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(hit.point, 0.1f);
-            }
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(pos, Camera.main.transform.position);
-        }
-        if (isOccluded)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position, 0.2f);
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.position, 0.2f);
-        }
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    bool isOccluded = true;
+    //    for (int i = 0; i < 4; i++)
+    //    {
+    //        Vector3 pos = transform.position + Quaternion.AngleAxis(i * 90, transform.forward) * transform.up;
+    //        if (!Physics.Linecast(pos, Camera.main.transform.position, out RaycastHit hit))
+    //        {
+    //            isOccluded = false;
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.yellow;
+    //            Gizmos.DrawSphere(hit.point, 0.1f);
+    //        }
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawLine(pos, Camera.main.transform.position);
+    //    }
+    //    if (isOccluded)
+    //    {
+    //        Gizmos.color = Color.green;
+    //        Gizmos.DrawSphere(transform.position, 0.2f);
+    //    }
+    //    else
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawSphere(transform.position, 0.2f);
+    //    }
+    //}
 }
 
 #if UNITY_EDITOR

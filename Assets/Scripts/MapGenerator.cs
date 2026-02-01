@@ -29,7 +29,7 @@ public class MapGenerator : MonoBehaviour
 
     public List<(PlacedTile, int)> closedDoors;
 
-    public List<(PlacedTile tile, EnemyController enemy)> enemySpawns;
+    public List<(PlacedTile tile, GameObject enemy)> entitySpawns;
 
     public RoomTileset Tileset;
 
@@ -56,7 +56,7 @@ public class MapGenerator : MonoBehaviour
     public void RunGenerator()
     {
         openTiles = new List<PlacedTile>();
-        enemySpawns = new List<(PlacedTile, EnemyController)>();
+        entitySpawns = new List<(PlacedTile, GameObject)>();
         closedDoors = new List<(PlacedTile, int)>();
 
         closedDoor = Resources.Load<GameObject>("Closed Door");
@@ -84,6 +84,8 @@ public class MapGenerator : MonoBehaviour
         int wCenter = gridWidth / 2;
 
         startingRoom = PlacePiece(Tileset.startingTile, wCenter, 0, 0);
+        var startChoice = Tileset.startingTile.availableEntities[Random.Range(0, Tileset.startingTile.availableEntities.Count)];
+        entitySpawns.Add((startingRoom, startChoice));
 
         Tileset.BuildTileList();
 
@@ -128,11 +130,11 @@ public class MapGenerator : MonoBehaviour
 
                         var newTile = PlacePiece(newPiece, newX, newY, newRot);
 
-                        if (newPiece.availableEnemies.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
+                        if (newPiece.availableEntities.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
                         {
                             Debug.Log("Queuing enemy spawn");
-                            var choice = newPiece.availableEnemies[Random.Range(0, newPiece.availableEnemies.Count)];
-                            enemySpawns.Add((newTile, choice));
+                            var choice = newPiece.availableEntities[Random.Range(0, newPiece.availableEntities.Count)];
+                            entitySpawns.Add((newTile, choice));
                         }
                     }
                     else if (state == MapgenRoomState.OutOfBounds || state == MapgenRoomState.RoomWithoutPassage)
@@ -177,18 +179,21 @@ public class MapGenerator : MonoBehaviour
     // run after the navmesh builds?
     public void ProcessEnemySpawns()
     {
-        while(enemySpawns.Count > 0)
+        while(entitySpawns.Count > 0)
         {
-            var next = enemySpawns[0];
-            enemySpawns.RemoveAt(0);
+            var next = entitySpawns[0];
+            entitySpawns.RemoveAt(0);
 
             var samplePos = next.tile.tilePiece.transform.position;
-            samplePos += new Vector3(Random.Range(-roomSize / 2, roomSize / 2), 0, Random.Range(-roomSize / 2, roomSize / 2));
+            //samplePos += new Vector3(Random.Range(-roomSize / 2, roomSize / 2), 0, Random.Range(-roomSize / 2, roomSize / 2));
 
             if (NavMesh.SamplePosition(samplePos, out var hit, 20f, 1))
             {
                 var enemy = Instantiate(next.enemy, hit.position + Vector3.up * 0.8f, Quaternion.identity);
                 enemy.transform.parent = EnemiesRoot.transform;
+
+                if (enemy.transform.TryGetComponent(out Character c))
+                    CharacterManager.Instance.AddCharacter(c);
             }
             else
             {
@@ -246,7 +251,7 @@ public class MapGenerator : MonoBehaviour
 
     PlacedTile PlacePiece(TilePiece piece, int x, int y, int rot)
     {
-        var placedPrefab = Instantiate(piece, new Vector3(x * roomSize, 0, y * roomSize), Quaternion.Euler(0, 90 * rot, 0));
+        var placedPrefab = Instantiate(piece, new Vector3(x * roomSize, 0, y * roomSize), Quaternion.Euler(0, 90f * rot, 0));
         placedPrefab.transform.parent = TilesRoot.transform;
         var placed = new PlacedTile(placedPrefab, piece.doors, x, y, rot);
         placed.x = x;

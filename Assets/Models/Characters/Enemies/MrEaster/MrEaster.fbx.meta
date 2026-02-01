@@ -40,7 +40,7 @@ ModelImporter:
       takeName: Armature|001_Idle
       internalID: 1413888019302001348
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -88,7 +88,84 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.14394662
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.2697807
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.32316488
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.41086745
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5402154
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6015252
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.68160146
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.742612
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.85319346
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9332697
+        functionName: PlaySound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 921ce77df558d7d4e99f406675a9e06b, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

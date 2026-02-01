@@ -18,6 +18,8 @@ public class PlayerSprint : State<PlayerController>
     {
         ctx.characterController.Move(ctx.moveVector * ctx.runSpeed * Time.deltaTime);
 
+        ctx.characterData.heatMap += Time.deltaTime * 2;
+
         if (ctx.SwitchByCondition(PlayerState.Idle, !ctx.isUsingInput))
             return;
         if (ctx.SwitchByCondition(PlayerState.Walk, !Input.GetKey(KeyCode.LeftShift)))
