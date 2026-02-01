@@ -64,10 +64,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: 7b1a238e9e8153d4c863db359d0dd0b8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 424a2cc4d8fbce24ba4c80eaad0aaa03, type: 2}
+    - target: {fileID: -4683669308469848369, guid: 7b1a238e9e8153d4c863db359d0dd0b8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d7f254c753907d4681247556a6073fc, type: 2}
     - target: {fileID: 919132149155446097, guid: 7b1a238e9e8153d4c863db359d0dd0b8, type: 3}
       propertyPath: m_Name
       value: desk
       objectReference: {fileID: 0}
+    - target: {fileID: 7202271454713460447, guid: 7b1a238e9e8153d4c863db359d0dd0b8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ca18d153702600140a7a623d316f3927, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -158,6 +170,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3b420d9b38848d54b852f9101eddbfaf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 424a2cc4d8fbce24ba4c80eaad0aaa03, type: 2}
     - target: {fileID: 919132149155446097, guid: 3b420d9b38848d54b852f9101eddbfaf, type: 3}
       propertyPath: m_Name
       value: chair
