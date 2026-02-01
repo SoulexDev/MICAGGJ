@@ -17,7 +17,11 @@ public class Player : MonoBehaviour
 
         character.OnDie += Character_OnDie;
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            Character_OnDie();
+    }
     private void Character_OnDie()
     {
         Cursor.lockState = CursorLockMode.None;
