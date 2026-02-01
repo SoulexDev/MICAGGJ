@@ -4,6 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MapgenRoomState
+{
+    Available,
+    OutOfBounds,
+    RoomWithPassage,
+    RoomWithoutPassage,
+    
+}
+
 [ExecuteInEditMode]
 public class MapGenerator : MonoBehaviour
 {
@@ -18,7 +27,9 @@ public class MapGenerator : MonoBehaviour
 
     public List<PlacedTile> openTiles;
 
-    public List<(PlacedTile tile, GameObject enemy)> entitySpawns;
+    public List<(PlacedTile, int)> closedDoors;
+
+    public List<(PlacedTile tile, EnemyController enemy)> enemySpawns;
 
     public RoomTileset Tileset;
 
@@ -27,6 +38,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject EnemiesRoot;
 
     public PlacedTile startingRoom;
+
+    private GameObject closedDoor;
 
     void Update()
     {
@@ -43,7 +56,10 @@ public class MapGenerator : MonoBehaviour
     public void RunGenerator()
     {
         openTiles = new List<PlacedTile>();
-        entitySpawns = new List<(PlacedTile, GameObject)>();
+        enemySpawns = new List<(PlacedTile, EnemyController)>();
+        closedDoors = new List<(PlacedTile, int)>();
+
+        closedDoor = Resources.Load<GameObject>("Closed Door");
 
         if(TilesRoot != null)
         {
@@ -82,14 +98,15 @@ public class MapGenerator : MonoBehaviour
                 if (curTile.doors[i])
                 {
                     (int newX, int newY) = MoveInDirection(curTile.x, curTile.y, i);
-                    if(IsSpaceOpen(newX, newY))
+                    var state = GetRoomState(newX, newY, i);
+                    if (state == MapgenRoomState.Available)
                     {
                         var newPiece = Tileset.TakePiece();
-                        if(newPiece == null)
+                        if (newPiece == null)
                         {
                             // we're out of pieces
-                            openTiles.Clear();
-                            break;
+                            closedDoors.Add((curTile, i));
+                            continue;
                         }
                         int newRot = Random.Range(0, 4);
 
@@ -98,11 +115,11 @@ public class MapGenerator : MonoBehaviour
 
                         int loopPrevent = 0;
 
-                        while(!newPiece.doors[(8 + oppositeDir - newRot) % 4])
+                        while (!newPiece.doors[(8 + oppositeDir - newRot) % 4])
                         {
                             newRot++;
                             loopPrevent++;
-                            if(loopPrevent == 4)
+                            if (loopPrevent == 4)
                             {
                                 Debug.LogError($"Invalid placement! Make sure room {newPiece} has doors!");
                                 break;
@@ -111,25 +128,59 @@ public class MapGenerator : MonoBehaviour
 
                         var newTile = PlacePiece(newPiece, newX, newY, newRot);
 
-                        if(newPiece.availableEntities.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
+                        if (newPiece.availableEnemies.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
                         {
                             Debug.Log("Queuing enemy spawn");
-                            var choice = newPiece.availableEntities[Random.Range(0, newPiece.availableEntities.Count)];
-                            entitySpawns.Add((newTile, choice));
+                            var choice = newPiece.availableEnemies[Random.Range(0, newPiece.availableEnemies.Count)];
+                            enemySpawns.Add((newTile, choice));
+                        }
+                    }
+                    else if (state == MapgenRoomState.OutOfBounds || state == MapgenRoomState.RoomWithoutPassage)
+                    {
+                        {
+                            closedDoors.Add((curTile, i));
                         }
                     }
                 }
             }
+        }
+
+        while (closedDoors.Count > 0)
+        {
+            (PlacedTile tile, int door) = closedDoors[0];
+            closedDoors.RemoveAt(0);
+
+            float xPos = tile.tilePiece.transform.position.x;
+            float zPos = tile.tilePiece.transform.position.z;
+
+            switch (door)
+            {
+                case 0:
+                    zPos += roomSize / 2;
+                    break;
+                case 1:
+                    xPos += roomSize / 2;
+                    break;
+                case 2:
+                    zPos -= roomSize / 2;
+                    break;
+                case 3:
+                    xPos -= roomSize / 2;
+                    break;
+            }
+
+            var closed = Instantiate(closedDoor, new Vector3(xPos, 0, zPos), Quaternion.Euler(0, 90 * (door - 1), 0));
+            closed.transform.parent = tile.tilePiece.transform;
         }
     }
 
     // run after the navmesh builds?
     public void ProcessEnemySpawns()
     {
-        while(entitySpawns.Count > 0)
+        while(enemySpawns.Count > 0)
         {
-            var next = entitySpawns[0];
-            entitySpawns.RemoveAt(0);
+            var next = enemySpawns[0];
+            enemySpawns.RemoveAt(0);
 
             var samplePos = next.tile.tilePiece.transform.position;
             samplePos += new Vector3(Random.Range(-roomSize / 2, roomSize / 2), 0, Random.Range(-roomSize / 2, roomSize / 2));
@@ -138,8 +189,6 @@ public class MapGenerator : MonoBehaviour
             {
                 var enemy = Instantiate(next.enemy, hit.position + Vector3.up * 0.8f, Quaternion.identity);
                 enemy.transform.parent = EnemiesRoot.transform;
-                if (enemy.TryGetComponent(out Character c))
-                    CharacterManager.Instance.AddCharacter(c);
             }
             else
             {
@@ -182,7 +231,7 @@ public class MapGenerator : MonoBehaviour
         return (x, y);
     }
 
-    bool IsSpaceOpen(int x, int y)
+    bool GetState(int x, int y)
     {
 
         if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight)
@@ -197,10 +246,8 @@ public class MapGenerator : MonoBehaviour
 
     PlacedTile PlacePiece(TilePiece piece, int x, int y, int rot)
     {
-        var placedPrefab = Instantiate(piece);
-        placedPrefab.transform.position = new Vector3(x * roomSize, 0, y * roomSize);
+        var placedPrefab = Instantiate(piece, new Vector3(x * roomSize, 0, y * roomSize), Quaternion.Euler(0, 90 * rot, 0));
         placedPrefab.transform.parent = TilesRoot.transform;
-        placedPrefab.transform.rotation = Quaternion.Euler(0, 90 * rot, 0);
         var placed = new PlacedTile(placedPrefab, piece.doors, x, y, rot);
         placed.x = x;
         placed.y = y;
@@ -218,5 +265,28 @@ public class MapGenerator : MonoBehaviour
 
         return placed;
 
+    }
+
+    MapgenRoomState GetRoomState(int x, int y, int fromDir)
+    {
+        if(x < 0 || x >= gridWidth || y < 0 || y >= gridHeight)
+        {
+            return MapgenRoomState.OutOfBounds;
+        }
+        var tile = tiles[x][y];
+        int oppositeDir = OppositeDir(fromDir);
+
+        if (tile == null)
+        {
+            return MapgenRoomState.Available;
+        }
+        else if (tile.doors[oppositeDir])
+        {
+            return MapgenRoomState.RoomWithPassage;
+        }
+        else
+        {
+            return MapgenRoomState.RoomWithoutPassage;
+        }
     }
 }
