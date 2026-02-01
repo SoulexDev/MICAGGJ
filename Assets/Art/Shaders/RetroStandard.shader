@@ -29,7 +29,7 @@ Shader "Custom/RetroStandard"
             half3 lightDir = normalize(gi.light.dir);
             half nl = dot(s.Normal, lightDir) * 0.5 + 0.5;
 
-            half3 color = s.Albedo * gi.light.color * nl + gi.indirect.diffuse * s.Albedo;
+            half3 color = s.Albedo * gi.light.color + gi.indirect.diffuse * s.Albedo;
 
             return half4(color, 1);
         }
