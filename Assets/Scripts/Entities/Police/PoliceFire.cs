@@ -20,7 +20,7 @@ public class PoliceFire : State<PoliceController>
     public override void UpdateState(PoliceController ctx)
     {
         Vector3 oppDir = new Vector3(ctx.characterData.targetOppDirectionNormalized.x, 0, ctx.characterData.targetOppDirectionNormalized.z);
-        ctx.transform.rotation = Quaternion.LookRotation(oppDir, Vector3.up);
+        ctx.transform.rotation = Quaternion.Lerp(ctx.transform.rotation, Quaternion.LookRotation(oppDir, Vector3.up), Time.deltaTime * 2);
 
         if (ctx.SwitchByCondition(PoliceState.RunFrom, ctx.characterData.allyPresence < 1 &&
             ctx.characterData.oppPresence > 0.75f))

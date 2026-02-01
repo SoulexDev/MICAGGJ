@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum CharacterType { Civilian = 1, Police = 2, Monster = 4 }
+public enum CharacterType { Civilian = 1, Police = 2, Monster = 4, Nuanced = 8 }
 public enum MaskType { None = 0, Joy = 1, Despair = 2, Anger = 4 }
 public class Character : MonoBehaviour, IHealth
 {
@@ -65,7 +65,8 @@ public class Character : MonoBehaviour, IHealth
     {
         { CharacterType.Police, CharacterType.Civilian | CharacterType.Police },
         { CharacterType.Civilian, CharacterType.Police | CharacterType.Civilian },
-        { CharacterType.Monster, CharacterType.Monster }
+        { CharacterType.Monster, CharacterType.Monster },
+        { CharacterType.Nuanced, CharacterType.Nuanced }
     };
     //[Allied, Mask] => SensitivityMultiplier
     private Dictionary<(bool, MaskType), float> m_MultiplierTable = new Dictionary<(bool, MaskType), float>
@@ -298,11 +299,11 @@ public class Character : MonoBehaviour, IHealth
         else
             return null;
     }
-    private bool IsAllied(Character heu)
+    public bool IsAllied(Character heu)
     {
         return (m_AllianceTable[characterType] & heu.characterType) != 0;
     }
-    private bool IsOpped(Character heu)
+    public bool IsOpped(Character heu)
     {
         return (m_AllianceTable[characterType] & heu.characterType) == 0;
     }

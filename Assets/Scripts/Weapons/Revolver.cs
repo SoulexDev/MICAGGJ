@@ -45,6 +45,13 @@ public class Revolver : MonoBehaviour
             {
                 health.Damage(1);
             }
+            if (hit.transform.TryGetComponent(out Character c))
+            {
+                if (Player.Instance.character.IsAllied(c))
+                {
+                    Player.Instance.character.characterType = CharacterType.Nuanced;
+                }
+            }
         }
     }
     IEnumerator Cooldown()

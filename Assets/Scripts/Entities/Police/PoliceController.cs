@@ -27,13 +27,20 @@ public class PoliceController : StateMachine<PoliceController>
     }
     public void Fire()
     {
-        if (Physics.Raycast(transform.position + Vector3.up, characterData.targetOppDirectionNormalized,
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward,
                 out RaycastHit hit, 999, GameManager.policeRayIgnoreMask))
         {
             print(hit.transform);
             if (hit.transform.TryGetComponent(out IHealth health))
             {
                 health.Damage(1);
+            }
+            if (hit.transform.TryGetComponent(out Character c))
+            {
+                if (characterData.IsAllied(c))
+                {
+                    characterData.characterType = CharacterType.Nuanced;
+                }
             }
             characterData.heatMap += 2;
         }
