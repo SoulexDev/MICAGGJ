@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
 
     public List<PlacedTile> openTiles;
 
-    public List<(PlacedTile tile, EnemyController enemy)> enemySpawns;
+    public List<(PlacedTile tile, GameObject enemy)> entitySpawns;
 
     public RoomTileset Tileset;
 
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
     public void RunGenerator()
     {
         openTiles = new List<PlacedTile>();
-        enemySpawns = new List<(PlacedTile, EnemyController)>();
+        entitySpawns = new List<(PlacedTile, GameObject)>();
 
         if(TilesRoot != null)
         {
@@ -111,11 +111,11 @@ public class MapGenerator : MonoBehaviour
 
                         var newTile = PlacePiece(newPiece, newX, newY, newRot);
 
-                        if(newPiece.availableEnemies.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
+                        if(newPiece.availableEntities.Count > 0 && Random.Range(0, 1f) < newPiece.enemyChance)
                         {
                             Debug.Log("Queuing enemy spawn");
-                            var choice = newPiece.availableEnemies[Random.Range(0, newPiece.availableEnemies.Count)];
-                            enemySpawns.Add((newTile, choice));
+                            var choice = newPiece.availableEntities[Random.Range(0, newPiece.availableEntities.Count)];
+                            entitySpawns.Add((newTile, choice));
                         }
                     }
                 }
@@ -126,10 +126,10 @@ public class MapGenerator : MonoBehaviour
     // run after the navmesh builds?
     public void ProcessEnemySpawns()
     {
-        while(enemySpawns.Count > 0)
+        while(entitySpawns.Count > 0)
         {
-            var next = enemySpawns[0];
-            enemySpawns.RemoveAt(0);
+            var next = entitySpawns[0];
+            entitySpawns.RemoveAt(0);
 
             var samplePos = next.tile.tilePiece.transform.position;
             samplePos += new Vector3(Random.Range(-roomSize / 2, roomSize / 2), 0, Random.Range(-roomSize / 2, roomSize / 2));
@@ -138,6 +138,8 @@ public class MapGenerator : MonoBehaviour
             {
                 var enemy = Instantiate(next.enemy, hit.position + Vector3.up * 0.8f, Quaternion.identity);
                 enemy.transform.parent = EnemiesRoot.transform;
+                if (enemy.TryGetComponent(out Character c))
+                    CharacterManager.Instance.AddCharacter(c);
             }
             else
             {

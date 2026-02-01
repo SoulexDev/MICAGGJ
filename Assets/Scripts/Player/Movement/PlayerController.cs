@@ -4,6 +4,8 @@ public enum PlayerState { Idle, Walk, Sprint }
 public class PlayerController : StateMachine<PlayerController>
 {
     public CharacterController characterController;
+    public Character characterData;
+
     public float walkSpeed = 2.5f;
     public float runSpeed = 6;
 

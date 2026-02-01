@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
             player = Instantiate(Resources.Load<Player>("Player"));
             player.transform.position = generator.startingRoom.tilePiece.transform.position;
+            CharacterManager.Instance.AddCharacter(player.GetComponentInChildren<Character>());
         }
 
 

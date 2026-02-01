@@ -22,6 +22,8 @@ public class CivilianRunFrom : State<CivilianController>
 
         ctx.agent.SetDestination(targetPosition);
 
+        ctx.characterData.heatMap += Time.deltaTime;
+
         if (ctx.SwitchByCondition(CivilianState.Idle, ctx.characterData.allyPresence < 0.5f))
             return;
         if (ctx.SwitchByCondition(CivilianState.RunFrom, ctx.characterData.oppPresence > 0.75f))

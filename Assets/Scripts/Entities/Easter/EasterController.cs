@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EasterController : MonoBehaviour
+public enum EasterState { Idle, Roam, Chase, Launch, Hurt }
+public class EasterController : StateMachine<EasterController>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public NavMeshAgent agent;
+    public Character characterData;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        stateDictionary.Add(EasterState.Idle, new EasterIdle());
+        stateDictionary.Add(EasterState.Roam, new EasterRoam());
+        stateDictionary.Add(EasterState.Chase, new EasterChase());
+        stateDictionary.Add(EasterState.Launch, new EasterLaunch());
+        stateDictionary.Add(EasterState.Hurt, new EasterHurt());
+
+        SwitchState(EasterState.Idle);
     }
 }

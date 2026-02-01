@@ -90,7 +90,9 @@ public class Character : MonoBehaviour, IHealth
 
         if (isPlayer)
             maskType = MaskPicker.Instance.chosenMask;
-
+    }
+    private void Start()
+    {
         foreach (Character heu in m_OtherHeuristics)
         {
             heu.OnDie += () =>
@@ -104,12 +106,12 @@ public class Character : MonoBehaviour, IHealth
                     OnOppDie?.Invoke();
                 }
             };
-        }
+        }   
     }
     private void Update()
     {
         isShot = Mathf.MoveTowards(isShot, 0, Time.deltaTime * 4);
-        heatMap = Mathf.MoveTowards(heatMap, 0, Time.deltaTime * 2);
+        heatMap = Mathf.Lerp(heatMap, 0, Time.deltaTime * 0.5f);
 
         frameTicker++;
 
@@ -214,7 +216,7 @@ public class Character : MonoBehaviour, IHealth
     }
     private Character GetNearestOpp()
     {
-        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsOpped(h) && !h.isDead))
+        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => h != this && IsOpped(h) && !h.isDead))
         {
             float dist = float.PositiveInfinity;
             Character heu = null;
@@ -237,7 +239,7 @@ public class Character : MonoBehaviour, IHealth
     }
     private Character GetNearestAlly()
     {
-        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => IsAllied(h) && !h.isDead))
+        if (m_OtherHeuristics.Count > 0 && m_OtherHeuristics.Exists(h => h != this && IsAllied(h) && !h.isDead))
         {
             float dist = float.PositiveInfinity;
             Character heu = null;
