@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeeeesTestingScript
   test: 0
-  gridWidth: 9
-  gridHeight: 9
+  gridWidth: 16
+  gridHeight: 16
   roomSize: 16
   Tileset: {fileID: 11400000, guid: dd3f85fb425c41b419b576ab51748459, type: 2}
   TilesRoot: {fileID: 0}
+  EnemiesRoot: {fileID: 0}

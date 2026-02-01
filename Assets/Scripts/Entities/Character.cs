@@ -15,6 +15,8 @@ public class Character : MonoBehaviour, IHealth
     public float maxHealth;
     private float m_Health;
 
+    public bool invincible;
+
     public Vector3 lookDirection;
 
     public Character targetOpp;
@@ -38,6 +40,8 @@ public class Character : MonoBehaviour, IHealth
                 OnDie?.Invoke();
         }
     }
+
+    public LayerMask rayIgnoreMask;
 
     public float shotAtAlly;
     public float shotAtOpp;
@@ -88,8 +92,11 @@ public class Character : MonoBehaviour, IHealth
     {
         m_Health = maxHealth;
 
-        //if (isPlayer)
-        //    maskType = MaskPicker.Instance.chosenMask;
+        if (isPlayer)
+            maskType = MaskPicker.Instance.chosenMask;
+
+        if (maskType == MaskType.Anger)
+            characterType = CharacterType.Monster;
     }
     private void Start()
     {
@@ -138,13 +145,20 @@ public class Character : MonoBehaviour, IHealth
     {
         m_Health -= amount;
         isShot += 1;
-
         isShot = Mathf.Clamp(isShot, 0, 1);
 
-        if (!isPlayer)
+        if (m_Health <= 0)
         {
-            CharacterManager.Instance.RemoveCharacter(this);
-            Destroy(gameObject);
+            if (invincible)
+            {
+                m_Health = maxHealth;
+            }
+            else if (!isPlayer)
+            {
+                CharacterManager.Instance.RemoveCharacter(this);
+                Destroy(gameObject);
+            }
+            OnDie?.Invoke();
         }
 
         return true;
@@ -213,12 +227,24 @@ public class Character : MonoBehaviour, IHealth
     private float GetAllyPresence(Character heu)
     {
         float dist = Vector3.Distance(transform.position, heu.transform.position);
-        return heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(true, heu.maskType)];
+
+        float value = heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(true, heu.maskType)];
+        if (Physics.Linecast(transform.position + Vector3.up, heu.transform.position + Vector3.up, ~rayIgnoreMask))
+        {
+            return value + 1;
+        }
+        return value;
     }
     private float GetOppPresence(Character heu)
     {
         float dist = Vector3.Distance(transform.position, heu.transform.position);
-        return heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(false, heu.maskType)];
+
+        float value = heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(false, heu.maskType)];
+        if (Physics.Linecast(transform.position + Vector3.up, heu.transform.position + Vector3.up, ~rayIgnoreMask))
+        {
+            return value + 1;
+        }
+        return value;
     }
     private Character GetNearestOpp()
     {

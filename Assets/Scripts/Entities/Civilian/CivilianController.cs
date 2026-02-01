@@ -15,4 +15,9 @@ public class CivilianController : StateMachine<CivilianController>
 
         SwitchState(CivilianState.Idle);
     }
+    public override void Update()
+    {
+        characterData.heatMap = Mathf.Lerp(characterData.heatMap, 0, Time.deltaTime * 0.5f);
+        base.Update();
+    }
 }

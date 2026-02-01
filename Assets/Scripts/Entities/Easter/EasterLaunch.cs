@@ -12,6 +12,8 @@ public class EasterLaunch : State<EasterController>
 
         m_PreviousSpeed = ctx.agent.speed;
         ctx.agent.speed = 32;
+
+        ctx.fastGrowlSource.PlayOneShot();
     }
     public override void ExitState(EasterController ctx)
     {
@@ -43,6 +45,6 @@ public class EasterLaunch : State<EasterController>
             ctx.SwitchState(EasterState.Hurt);
             return;
         }
-        ctx.SwitchByCondition(EasterState.Roam, ctx.agent.remainingDistance < 0.5f);
+        ctx.SwitchByCondition(EasterState.Hurt, ctx.agent.remainingDistance < 0.5f);
     }
 }

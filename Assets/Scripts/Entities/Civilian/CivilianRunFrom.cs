@@ -24,9 +24,9 @@ public class CivilianRunFrom : State<CivilianController>
 
         ctx.characterData.heatMap += Time.deltaTime;
 
-        if (ctx.SwitchByCondition(CivilianState.Idle, ctx.characterData.allyPresence < 0.5f))
+        if (ctx.SwitchByCondition(CivilianState.Idle, ctx.characterData.allyPresence < 0.5f && ctx.characterData.oppPresence < 0.5f))
             return;
-        if (ctx.SwitchByCondition(CivilianState.RunFrom, ctx.characterData.oppPresence > 0.75f))
+        if (ctx.SwitchByCondition(CivilianState.RunTo, ctx.characterData.allyPresence > 0.75f))
             return;
     }
 }

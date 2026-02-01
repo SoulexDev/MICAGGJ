@@ -8,6 +8,11 @@ public class EasterController : StateMachine<EasterController>
     public Animator anims;
     public Character characterData;
 
+    public AdvancedAudioSource piqueSource;
+    public AdvancedAudioSource slowGrowlSource;
+    public AdvancedAudioSource fastGrowlSource;
+    public AdvancedAudioSource hurtSource;
+
     private void Awake()
     {
         stateDictionary.Add(EasterState.Idle, new EasterIdle());
@@ -17,5 +22,11 @@ public class EasterController : StateMachine<EasterController>
         stateDictionary.Add(EasterState.Hurt, new EasterHurt());
 
         SwitchState(EasterState.Idle);
+
+        characterData.OnDie += CharacterData_OnDie;
+    }
+    private void CharacterData_OnDie()
+    {
+        SwitchState(EasterState.Hurt);
     }
 }

@@ -5,6 +5,7 @@ public class EasterChase : State<EasterController>
     public override void EnterState(EasterController ctx)
     {
         ctx.anims.SetFloat("MoveState", 1);
+        ctx.piqueSource.PlayOneShot();
     }
     public override void ExitState(EasterController ctx)
     {

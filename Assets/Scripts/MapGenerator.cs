@@ -84,6 +84,8 @@ public class MapGenerator : MonoBehaviour
         int wCenter = gridWidth / 2;
 
         startingRoom = PlacePiece(Tileset.startingTile, wCenter, 0, 0);
+        var startChoice = Tileset.startingTile.availableEntities[Random.Range(0, Tileset.startingTile.availableEntities.Count)];
+        entitySpawns.Add((startingRoom, startChoice));
 
         Tileset.BuildTileList();
 
@@ -249,7 +251,7 @@ public class MapGenerator : MonoBehaviour
 
     PlacedTile PlacePiece(TilePiece piece, int x, int y, int rot)
     {
-        var placedPrefab = Instantiate(piece, new Vector3(x * roomSize, 0, y * roomSize), Quaternion.Euler(0, 90 * rot, 0));
+        var placedPrefab = Instantiate(piece, new Vector3(x * roomSize, 0, y * roomSize), Quaternion.Euler(0, 90f * rot, 0));
         placedPrefab.transform.parent = TilesRoot.transform;
         var placed = new PlacedTile(placedPrefab, piece.doors, x, y, rot);
         placed.x = x;

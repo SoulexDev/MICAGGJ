@@ -9,6 +9,7 @@ public class EasterHurt : State<EasterController>
         ctx.agent.isStopped = true;
 
         timer = 3;
+        ctx.hurtSource.PlayOneShot();
     }
     public override void ExitState(EasterController ctx)
     {

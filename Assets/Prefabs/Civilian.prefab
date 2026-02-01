@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 6392086117965504616}
   - component: {fileID: 8130894722994953834}
   - component: {fileID: 2662219131084433319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Civilian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,6 +167,9 @@ MonoBehaviour:
   lookDirection: {x: 0, y: 0, z: 0}
   targetOpp: {fileID: 0}
   targetAlly: {fileID: 0}
+  rayIgnoreMask:
+    serializedVersion: 2
+    m_Bits: 388
   shotAtAlly: 0
   shotAtOpp: 0
   gunPointedMe: 0

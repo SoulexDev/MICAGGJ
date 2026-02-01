@@ -66,8 +66,8 @@ public class PlayerController : StateMachine<PlayerController>
         //if ((bodyLayerMask & pushLayers) == 0)
         //return;
 
-        Debug.Log(hit.moveDirection);
-        Debug.Log(hit.point);
+        //Debug.Log(hit.moveDirection);
+        //Debug.Log(hit.point);
 
         // We dont want to push objects below us
         if (hit.moveDirection.y < -0.3)
