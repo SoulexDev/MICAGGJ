@@ -16,6 +16,7 @@ public class EasterIdle : State<EasterController>
     }
     public override void UpdateState(EasterController ctx)
     {
-        
+        if (ctx.SwitchByCondition(EasterState.Chase, ctx.characterData.oppPresence > 1))
+            return;
     }
 }

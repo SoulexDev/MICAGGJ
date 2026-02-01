@@ -5,6 +5,7 @@ public enum EasterState { Idle, Roam, Chase, Launch, Hurt }
 public class EasterController : StateMachine<EasterController>
 {
     public NavMeshAgent agent;
+    public Animator anims;
     public Character characterData;
 
     private void Awake()

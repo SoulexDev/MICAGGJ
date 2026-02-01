@@ -4,7 +4,7 @@ public class EasterChase : State<EasterController>
 {
     public override void EnterState(EasterController ctx)
     {
-
+        ctx.anims.SetFloat("MoveState", 1);
     }
     public override void ExitState(EasterController ctx)
     {
@@ -16,6 +16,9 @@ public class EasterChase : State<EasterController>
     }
     public override void UpdateState(EasterController ctx)
     {
-
+        ctx.agent.SetDestination(ctx.characterData.targetOpp.transform.position);
+        
+        if (ctx.SwitchByCondition(EasterState.Launch, ctx.characterData.targetOppDistance < 6))
+            return;
     }
 }

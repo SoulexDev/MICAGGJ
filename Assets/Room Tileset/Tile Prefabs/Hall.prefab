@@ -84,6 +84,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hall
       objectReference: {fileID: 0}
+    - target: {fileID: 7799308900264824050, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
+      propertyPath: m_Range
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799308900264824050, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
+      propertyPath: m_Color.b
+      value: 0.49622637
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799308900264824050, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6531395
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799308900264824050, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7799308900264824050, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
+      propertyPath: m_Intensity
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1225708037003401614, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}

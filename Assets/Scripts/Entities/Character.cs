@@ -18,12 +18,12 @@ public class Character : MonoBehaviour, IHealth
     public Vector3 lookDirection;
 
     public Character targetOpp;
-    public Vector3 targettOppDirection => targetOpp != null ? targetOpp.transform.position - transform.position : Vector3.zero;
-    public Vector3 targettOppDirectionNormalized => targettOppDirection.normalized;
-    public float targettOppDistance => targettOppDirection.magnitude;
+    public Vector3 targetOppDirection => targetOpp != null ? transform.position - targetOpp.transform.position : Vector3.zero;
+    public Vector3 targetOppDirectionNormalized => targetOppDirection.normalized;
+    public float targetOppDistance => targetOppDirection.magnitude;
 
     public Character targetAlly;
-    public Vector3 targetAllyDirection => targetAlly != null ? targetAlly.transform.position - transform.position : Vector3.zero;
+    public Vector3 targetAllyDirection => targetAlly != null ? transform.position - targetAlly.transform.position : Vector3.zero;
     public Vector3 targetAllyDirectionNormalized => targetAllyDirection.normalized;
     public float targetAllyDistance => targetAllyDirection.magnitude;
 
@@ -88,8 +88,8 @@ public class Character : MonoBehaviour, IHealth
     {
         m_Health = maxHealth;
 
-        if (isPlayer)
-            maskType = MaskPicker.Instance.chosenMask;
+        //if (isPlayer)
+        //    maskType = MaskPicker.Instance.chosenMask;
     }
     private void Start()
     {
@@ -112,7 +112,7 @@ public class Character : MonoBehaviour, IHealth
     {
         isShot = Mathf.MoveTowards(isShot, 0, Time.deltaTime * 4);
         heatMap = Mathf.Lerp(heatMap, 0, Time.deltaTime * 0.5f);
-
+        //print(heatMap);
         frameTicker++;
 
         if (frameTicker % 20 == 0)
@@ -140,6 +140,12 @@ public class Character : MonoBehaviour, IHealth
         isShot += 1;
 
         isShot = Mathf.Clamp(isShot, 0, 1);
+
+        if (!isPlayer)
+        {
+            CharacterManager.Instance.RemoveCharacter(this);
+            Destroy(gameObject);
+        }
 
         return true;
     }
@@ -207,12 +213,12 @@ public class Character : MonoBehaviour, IHealth
     private float GetAllyPresence(Character heu)
     {
         float dist = Vector3.Distance(transform.position, heu.transform.position);
-        return heu.heatMap * Mathf.Clamp01(1f - dist / 15f) * m_MultiplierTable[(true, heu.maskType)];
+        return heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(true, heu.maskType)];
     }
     private float GetOppPresence(Character heu)
     {
         float dist = Vector3.Distance(transform.position, heu.transform.position);
-        return heu.heatMap * Mathf.Clamp01(1f - dist / 15f) * m_MultiplierTable[(false, heu.maskType)];
+        return heu.heatMap * Mathf.Clamp01(1f - dist / 32f) * m_MultiplierTable[(false, heu.maskType)];
     }
     private Character GetNearestOpp()
     {
