@@ -20,7 +20,7 @@ public class CivilianRunFrom : State<CivilianController>
         targetPosition.Normalize();
         targetPosition *= 10;
 
-        ctx.agent.SetDestination(ctx.characterData.targetAlly.transform.position);
+        ctx.agent.SetDestination(targetPosition);
 
         if (ctx.SwitchByCondition(CivilianState.Idle, ctx.characterData.allyPresence < 0.5f))
             return;
