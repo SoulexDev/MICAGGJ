@@ -18,15 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6084813482969264699, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.55
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6084813482969264699, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000000010928465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6084813482969264699, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6084813482969264699, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: m_LocalRotation.w
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861877467159963777, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: m_Name
-      value: Hall Variant
+      value: Hall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

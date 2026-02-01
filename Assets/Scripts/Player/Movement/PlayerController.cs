@@ -51,4 +51,32 @@ public class PlayerController : StateMachine<PlayerController>
         else
             groundNormal = Vector3.up;
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+
+        var body = hit.collider.attachedRigidbody;
+        // no rigidbody
+        if (body == null || body.isKinematic)
+            return;
+        // Only push rigidbodies in the right layers
+        //var bodyLayerMask = 1 << body.gameObject.layer;
+        //if ((bodyLayerMask & pushLayers) == 0)
+        //return;
+
+        Debug.Log(hit.moveDirection);
+        Debug.Log(hit.point);
+
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3)
+            return;
+        // Calculate push direction from move direction, we only push objects to the sides
+        // never up and down
+        var pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        Debug.Log("adding force");
+
+        // push with move speed but never more than walkspeed
+        body.AddForceAtPosition(pushDir * 0.15f, hit.point, ForceMode.Impulse);
+    }
 }

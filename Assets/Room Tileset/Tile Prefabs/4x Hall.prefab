@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5570045
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000000010928465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.6511583
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
       propertyPath: m_Name
-      value: TestHall
+      value: 4x Hall
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5754084199372789682, guid: 0f42ca43638952a4a8c0de8a6db1a0cc, type: 3}
