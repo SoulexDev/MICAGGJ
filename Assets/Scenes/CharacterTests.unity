@@ -1202,6 +1202,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1407535738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407535735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5c4518592b74145a87d5c7508f5846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MorphAnim
+  msh: {fileID: 1618409369}
 --- !u!1 &1419030209 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a221163d4f9f1954b8d0baa924d86b7f, type: 3}
@@ -1283,6 +1296,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &1618409369 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8417361359673230750, guid: 8f03fc2c09f4e0342894d5bdb3378a08, type: 3}
+  m_PrefabInstance: {fileID: 2087083469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1870244440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1471,6 +1489,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f03fc2c09f4e0342894d5bdb3378a08, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1407535736}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f03fc2c09f4e0342894d5bdb3378a08, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1407535738}
   m_SourcePrefab: {fileID: 100100000, guid: 8f03fc2c09f4e0342894d5bdb3378a08, type: 3}
 --- !u!1001 &2115499276
 PrefabInstance:
