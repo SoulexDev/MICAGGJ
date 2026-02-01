@@ -25,6 +25,11 @@ public class EasterController : StateMachine<EasterController>
 
         characterData.OnDie += CharacterData_OnDie;
     }
+    public override void Update()
+    {
+        characterData.heatMap = Mathf.Lerp(characterData.heatMap, 0, Time.deltaTime * 0.5f);
+        base.Update();
+    }
     private void CharacterData_OnDie()
     {
         SwitchState(EasterState.Hurt);

@@ -4,7 +4,7 @@ public class CivilianRunTo : State<CivilianController>
 {
     public override void EnterState(CivilianController ctx)
     {
-        
+        ctx.agent.isStopped = false;
     }
     public override void ExitState(CivilianController ctx)
     {
@@ -16,6 +16,8 @@ public class CivilianRunTo : State<CivilianController>
     }
     public override void UpdateState(CivilianController ctx)
     {
+        ctx.anims.SetFloat("MoveState", ctx.agent.velocity.magnitude / ctx.agent.speed);
+
         ctx.agent.SetDestination(ctx.characterData.targetAlly.transform.position);
 
         ctx.characterData.heatMap += Time.deltaTime;

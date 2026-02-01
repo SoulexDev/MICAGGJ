@@ -18,7 +18,9 @@ public class EasterChase : State<EasterController>
     public override void UpdateState(EasterController ctx)
     {
         ctx.agent.SetDestination(ctx.characterData.targetOpp.transform.position);
-        
+
+        ctx.characterData.heatMap += Time.deltaTime;
+
         if (ctx.SwitchByCondition(EasterState.Launch, ctx.characterData.targetOppDistance < 6))
             return;
     }

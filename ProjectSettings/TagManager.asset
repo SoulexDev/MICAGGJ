@@ -12,13 +12,13 @@ TagManager:
   - Water
   - UI
   - Player
-  - Enemy
-  - Ignore Enemy
+  - Monster
+  - Ignore Monster
   - No Nav
-  - 
-  - 
-  - 
-  - 
+  - Civilian
+  - Ignore Civilian
+  - Police
+  - Ignore Police
   - 
   - 
   - 

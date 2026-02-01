@@ -12,6 +12,8 @@ public class Character : MonoBehaviour, IHealth
     public CharacterType characterType;
     public MaskType maskType;
 
+    public Collider col;
+
     public float maxHealth;
     private float m_Health;
 
@@ -20,12 +22,14 @@ public class Character : MonoBehaviour, IHealth
     public Vector3 lookDirection;
 
     public Character targetOpp;
-    public Vector3 targetOppDirection => targetOpp != null ? transform.position - targetOpp.transform.position : Vector3.zero;
+
+    public Vector3 center => transform.position + Vector3.up;
+    public Vector3 targetOppDirection => targetOpp != null ? targetOpp.center - center : Vector3.zero;
     public Vector3 targetOppDirectionNormalized => targetOppDirection.normalized;
     public float targetOppDistance => targetOppDirection.magnitude;
 
     public Character targetAlly;
-    public Vector3 targetAllyDirection => targetAlly != null ? transform.position - targetAlly.transform.position : Vector3.zero;
+    public Vector3 targetAllyDirection => targetAlly != null ? targetAlly.center - center : Vector3.zero;
     public Vector3 targetAllyDirectionNormalized => targetAllyDirection.normalized;
     public float targetAllyDistance => targetAllyDirection.magnitude;
 
@@ -153,12 +157,14 @@ public class Character : MonoBehaviour, IHealth
             {
                 m_Health = maxHealth;
             }
-            else if (!isPlayer)
+            else
             {
                 CharacterManager.Instance.RemoveCharacter(this);
-                Destroy(gameObject);
+                isDead = true;
+
+                if (col)
+                    col.enabled = false;
             }
-            OnDie?.Invoke();
         }
 
         return true;

@@ -1060,6 +1060,7 @@ MonoBehaviour:
   isPlayer: 0
   characterType: 4
   maskType: 0
+  col: {fileID: 4048922079542513495}
   maxHealth: 3
   invincible: 1
   lookDirection: {x: 0, y: 0, z: 0}

@@ -46,6 +46,9 @@ public class EasterRoam : State<EasterController>
             m_GrowlTimer = Random.Range(4f, 7f);
             ctx.slowGrowlSource.PlayOneShot();
         }
+
+        ctx.characterData.heatMap += Time.deltaTime;
+
         ctx.anims.SetFloat("MoveState", ctx.agent.velocity.magnitude / ctx.agent.speed);
         if (ctx.SwitchByCondition(EasterState.Chase, ctx.characterData.oppPresence > 1))
             return;

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: enemyChance
-      value: 1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: 'doors.Array.data[0]'
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: availableEntities.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1264280096653777879, guid: 6e1c1a3b6dc8e1d4b92b9a7d2cc41828, type: 3}
       propertyPath: 'availableEnemies.Array.data[1]'

@@ -4,7 +4,7 @@ public class CivilianRunFrom : State<CivilianController>
 {
     public override void EnterState(CivilianController ctx)
     {
-        
+        ctx.agent.isStopped = false;
     }
     public override void ExitState(CivilianController ctx)
     {
@@ -16,6 +16,8 @@ public class CivilianRunFrom : State<CivilianController>
     }
     public override void UpdateState(CivilianController ctx)
     {
+        ctx.anims.SetFloat("MoveState", ctx.agent.velocity.magnitude / ctx.agent.speed);
+
         Vector3 targetPosition = ctx.transform.position - ctx.characterData.targetOpp.transform.position;
         targetPosition.Normalize();
         targetPosition *= 10;

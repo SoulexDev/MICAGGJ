@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class PoliceFireGun : MonoBehaviour
 {
-    public AudioSource audioSrc;
-    public AudioClip snd;
-
+    public AdvancedAudioSource audioSource;
+    public PoliceController policeController;
     void PoliceFire()
     {
-        Debug.Log("FirePoliceGun");
-
-        audioSrc.Play();
+        audioSource.PlayOneShot();
+        policeController.Fire();
     }
 }
