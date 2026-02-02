@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2569113391550230252}
   - component: {fileID: 3547206935341301426}
   m_Layer: 2
-  m_Name: SuctionTrigger
+  m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861b8b3b555a88241be27d0dd53399f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuctionTrigger
+  m_Posessor: {fileID: 5677084924461734083, guid: 205c42ec6e0ef3c4a8bc0736fab85044, type: 3}
 --- !u!1 &4242543847275309669
 GameObject:
   m_ObjectHideFlags: 0

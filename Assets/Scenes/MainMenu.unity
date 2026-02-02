@@ -638,6 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7bb00b79bdba344d887bc4ce394bbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaskPickerFinder
+  playercutscene: {fileID: 0}
 --- !u!4 &463034689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 23abe25f9f346f4419359485ad9526d1, type: 3}
@@ -2587,7 +2588,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaskPicker
   chosenMask: 0
-  playercutscene: {fileID: 1787297049}
 --- !u!4 &1930925965
 Transform:
   m_ObjectHideFlags: 0

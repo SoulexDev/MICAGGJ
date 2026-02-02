@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 5774759141735827237}
   - component: {fileID: 1992843580595234115}
   - component: {fileID: 8595669066839279701}
+  - component: {fileID: 8852879570681106665}
   m_Layer: 0
   m_Name: Locker
   m_TagString: Untagged
@@ -297,7 +298,7 @@ Transform:
   m_GameObject: {fileID: 4985171872056547759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.753, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -381,6 +382,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigidbodySound
   advancedAudioSource: {fileID: 7580649170853580140}
   soundThreshold: 0.5
+--- !u!114 &8852879570681106665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4985171872056547759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f407fd6ff67f45a4c85b44abcf9e44e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Posessable
+  m_Mimic: {fileID: 1983580912569573896, guid: 35e0b4f1375a0864ca2a559f18fd3f82, type: 3}
 --- !u!1 &7976639148488462845
 GameObject:
   m_ObjectHideFlags: 0

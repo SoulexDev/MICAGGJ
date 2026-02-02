@@ -21,7 +21,7 @@ public class EasterController : StateMachine<EasterController>
         stateDictionary.Add(EasterState.Launch, new EasterLaunch());
         stateDictionary.Add(EasterState.Hurt, new EasterHurt());
 
-        SwitchState(EasterState.Idle);
+        SwitchState(EasterState.Roam);
 
         characterData.OnDie += CharacterData_OnDie;
     }
