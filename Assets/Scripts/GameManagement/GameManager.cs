@@ -31,20 +31,16 @@ public class GameManager : MonoBehaviour
         {
             navSurface = FindFirstObjectByType<NavMeshSurface>();
 
-            generator = Instantiate(Resources.Load<MapGenerator>("Map Generator"));
+            generator = Instantiate(Resources.Load<MapGenerator>("MapGenerators/Map Generator"));
 
             generator.RunGenerator();
             navSurface.BuildNavMesh();
 
             generator.ProcessEnemySpawns();
 
-            player = Instantiate(Resources.Load<Player>("Player"));
+            player = Instantiate(Resources.Load<Player>("Entities/Player"));
             player.transform.position = generator.startingRoom.tilePiece.transform.position;
             CharacterManager.Instance.AddCharacter(player.GetComponentInChildren<Character>());
         }
-
-
     }
-
-
 }

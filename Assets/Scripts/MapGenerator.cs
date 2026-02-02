@@ -59,7 +59,7 @@ public class MapGenerator : MonoBehaviour
         entitySpawns = new List<(PlacedTile, GameObject)>();
         closedDoors = new List<(PlacedTile, int)>();
 
-        closedDoor = Resources.Load<GameObject>("Closed Door");
+        closedDoor = Resources.Load<GameObject>("Environment/Closed Door");
 
         if(TilesRoot != null)
         {
@@ -204,15 +204,14 @@ public class MapGenerator : MonoBehaviour
 
     int OppositeDir(int dir)
     {
-        switch(dir)
+        return dir switch
         {
-            case 0: return 2;
-            case 1: return 3;
-            case 2: return 0;
-            case 3: return 1;
-        }
-
-        return -1;
+            0 => 2,
+            1 => 3,
+            2 => 0,
+            3 => 1,
+            _ => -1
+        };
     }
 
     (int x, int y) MoveInDirection(int x, int y, int dir)

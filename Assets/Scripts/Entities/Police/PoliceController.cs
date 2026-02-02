@@ -23,6 +23,10 @@ public class PoliceController : StateMachine<PoliceController>
     public override void Update()
     {
         characterData.heatMap = Mathf.Lerp(characterData.heatMap, 0, Time.deltaTime * 0.5f);
+        if (characterData.isDead)
+        {
+            return;
+        }
         base.Update();
     }
     public void Fire()

@@ -22,6 +22,11 @@ public class CivilianController : StateMachine<CivilianController>
     public override void Update()
     {
         characterData.heatMap = Mathf.Lerp(characterData.heatMap, 0, Time.deltaTime * 0.5f);
+
+        if (characterData.isDead)
+        {
+            return;
+        }
         base.Update();
     }
     private void CharacterData_OnDie()
