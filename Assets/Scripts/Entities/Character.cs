@@ -98,7 +98,7 @@ public class Character : MonoBehaviour, IHealth
         m_Health = maxHealth;
 
         if (isPlayer)
-            maskType = MaskPicker.Instance.chosenMask;
+            maskType = MaskPicker.Instance?.chosenMask ?? MaskType.Joy;
 
         if (maskType == MaskType.Anger)
             characterType = CharacterType.Monster;
